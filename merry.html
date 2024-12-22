@@ -805,34 +805,42 @@ function drawStars() {
  
  
     let myLabels = [
-      "祝珊瑚宝宝~",
-      "圣诞快乐",
-      "宝宝原谅我，好不好嘛",
-    ];
-    
-    function init() {
-      let element = document.getElementById("header");
-      for(let i = 0; i < myLabels.length; i++) {
-        let _p = document.createElement("p");
-        _p.className = "header-item";
-        _p.innerHTML = myLabels[i];
-        element.appendChild(_p);
-      }
- 
-      let labels = document.getElementsByClassName('header-item');
-      for(let i = 0; i < myLabels.length; i++) {
-        setTimeout(() => {
-          labels[i].classList.add("show");
-        }, 1000 * i);
-      }      
+    "祝珊瑚宝宝~",
+    "圣诞快乐",
+    "宝宝原谅我，好不好嘛",
+  ];
+  
+  function init() {
+    let element = document.getElementById("header");
+    for (let i = 0; i < myLabels.length; i++) {
+      let _p = document.createElement("p");
+      _p.className = "header-item";
+      _p.innerHTML = myLabels[i];
+      element.appendChild(_p);
     }
-        init();
-        createParticles()
-        drawStar();
-        drawMain();
-        mainTl.add(starTl, 0);
-        gsap.globalTimeline.timeScale(1.5); //  圣诞树开始绘画时小光点动画的绘画速率，越大越快
-        drawStars();
+  
+    let labels = document.getElementsByClassName('header-item');
+    let index = 0;
+  
+    function showLabel() {
+      labels[index].classList.add("show");
+      setTimeout(() => {
+        labels[index].classList.remove("show");
+        index = (index + 1) % myLabels.length;
+        showLabel();
+      }, 1000); // 每个标签显示1秒
+    }
+  
+    showLabel();
+  }
+  
+  init();
+  createParticles();
+  drawStar();
+  drawMain();
+  mainTl.add(starTl, 0);
+  gsap.globalTimeline.timeScale(1.5); //  圣诞树开始绘画时小光点动画的绘画速率，越大越快
+  drawStars();
   
   </script>
 </html>
